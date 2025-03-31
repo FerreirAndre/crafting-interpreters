@@ -10,14 +10,18 @@ import java.util.List;
 public class GenerateAst {
         public static void main(String[] args) throws IOException {
 
-                Path currentRelativePath = Paths.get("java/com/craftinginterpreters/lox");
+                Path currentRelativePath = Paths.get("src/com/craftinginterpreters/lox");
                 String outputDir = currentRelativePath.toAbsolutePath().toString();
-
+                System.out.println(currentRelativePath);
                 defineAst(outputDir, "Expr", Arrays.asList(
                                 "Binary   : Expr left, Token operator, Expr right",
                                 "Grouping : Expr expression",
                                 "Literal  : Object value",
                                 "Unary    : Token operator, Expr right"));
+
+                defineAst(outputDir, "Stmt", Arrays.asList(
+                                "Expression : Expr expression",
+                                "Print : Expr expression"));
         }
 
         private static void defineAst(String outputDir, String baseName, List<String> types) throws IOException {
