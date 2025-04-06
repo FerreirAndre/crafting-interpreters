@@ -12,20 +12,22 @@ public class GenerateAst {
 
                 Path currentRelativePath = Paths.get("src/com/craftinginterpreters/lox");
                 String outputDir = currentRelativePath.toAbsolutePath().toString();
-                System.out.println(currentRelativePath);
                 defineAst(outputDir, "Expr", Arrays.asList(
                                 "Assign : Token name, Expr value",
-                                "Binary   : Expr left, Token operator, Expr right",
+                                "Binary : Expr left, Token operator, Expr right",
                                 "Grouping : Expr expression",
-                                "Literal  : Object value",
-                                "Unary    : Token operator, Expr right",
+                                "Literal : Object value",
+                                "Logical : Expr left, Token operator, Expr right",
+                                "Unary : Token operator, Expr right",
                                 "Variable : Token name"));
 
                 defineAst(outputDir, "Stmt", Arrays.asList(
                                 "Block : List<Stmt> statements",
                                 "Expression : Expr expression",
+                                "If : Expr condition, Stmt thenBranch, Stmt elseBranch",
                                 "Print : Expr expression",
-                                "Var : Token name, Expr initializer"));
+                                "Var : Token name, Expr initializer",
+                                "While : Expr condition, Stmt body"));
         }
 
         private static void defineAst(String outputDir, String baseName, List<String> types) throws IOException {
