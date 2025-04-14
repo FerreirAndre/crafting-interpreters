@@ -1,10 +1,7 @@
-var a = "global";
-{
-        fun showA(){
-                print a;
+class Bacon {
+        eat() {
+                print "comendo bacon kkkkkkk";
         }
-        showA();
-        var a = "block";
-        showA();
 }
-
+var bacon = Bacon();
+bacon.eat();
