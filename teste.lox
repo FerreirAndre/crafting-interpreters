@@ -3,5 +3,8 @@ class Bacon {
                 print "comendo bacon kkkkkkk";
         }
 }
-var bacon = Bacon();
-bacon.eat();
+
+class BaconFrito < Bacon {}
+
+BaconFrito().eat();
+

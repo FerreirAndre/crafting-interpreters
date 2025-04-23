@@ -47,10 +47,22 @@ class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
         public Void visitClassStmt(Stmt.Class stmt) {
                 ClassType enclosingClass = currentClass;
                 currentClass = ClassType.CLASS;
+
                 declare(stmt.name);
                 define(stmt.name);
+
+                if (stmt.superclass != null && stmt.name.lexeme.equals(stmt.superclass.name.lexeme)) {
+                        Lox.error(stmt.superclass.name, "A class can't inherit from itself.");
+                }
+
+                if (stmt.superclass != null) {
+                        resolve(stmt.superclass);
+                }
+
                 beginScope();
+
                 scopes.peek().put("this", true);
+
                 for (Stmt.Function method : stmt.methods) {
                         FunctionType declaration = FunctionType.METHOD;
                         if (method.name.lexeme.equals("init")) {
@@ -58,7 +70,9 @@ class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
                         }
                         resolveFunction(method, declaration);
                 }
+
                 endScope();
+
                 currentClass = enclosingClass;
                 return null;
         }
